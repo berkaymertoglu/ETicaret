@@ -1,0 +1,53 @@
+﻿@model List<YZProje.Models.Siparis>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Alışverişi Tamamlandı";
+}
+
+<h2 class="page-title">Alışverişi Tamamlandı</h2>
+
+@if (Model != null && Model.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th>Ürün</th>
+                    <th>Ürün Adı</th>
+                    <th>Miktar</th>
+                    <th>Fiyat</th>
+                    <th>Toplam</th>
+                    <th>Kargo Durumu</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var siparis in Model)
+                {
+                    <tr>
+                        <td>
+                            <div class="product-cart d-flex align-items-center">
+                                <div class="product-thumb">
+                                    <img src="@siparis.FotoUrl" alt="@siparis.UrunAdi" class="product-image" />
+                                </div>
+                            </div>
+                        </td>
+                        <td>@siparis.UrunAdi</td>
+                        <td>@siparis.Miktar</td>
+                        <td>@siparis.Fiyat.ToString("C2")</td>
+                        <td>@((siparis.Miktar * siparis.Fiyat).ToString("C2"))</td>
+                        <td>@siparis.KargoDurumu</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="total">
+            <strong>Toplam Fiyat: </strong>@ViewBag.ToplamFiyat.ToString("C2")
+        </div>
+    </div>
+}
+else
+{
+    <p>Henüz siparişiniz bulunmamaktadır.</p>
+}

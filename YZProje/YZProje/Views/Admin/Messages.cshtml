@@ -1,0 +1,75 @@
+﻿@{
+    Layout = null;
+}
+
+<h2>Gelen Mesajlar</h2>
+
+@if (Model.Count == 0)
+{
+    <p class="no-messages">Henüz mesaj yok.</p>
+}
+else
+{
+    <table class="messages-table">
+        <thead>
+            <tr>
+                <th>Ad</th>
+                <th>E-posta</th>
+                <th>Mesaj</th>
+                <th>Tarih</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var mesaj in Model)
+            {
+                <tr>
+                    <td>@mesaj.Ad</td>
+                    <td>@mesaj.Eposta</td>
+                    <td>@mesaj.Mesaj</td>
+                    <td>@mesaj.GonderimTarihi.ToString("dd.MM.yyyy HH:mm")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<style>
+    h2 {
+        text-align: center;
+        color: #2c3e50;
+        margin-bottom: 20px;
+    }
+
+    .no-messages {
+        text-align: center;
+        font-size: 18px;
+        color: #888;
+    }
+
+    .messages-table {
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+        border-collapse: collapse;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .messages-table th, .messages-table td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+        text-align: left;
+    }
+
+    .messages-table th {
+        background-color: #2980b9;
+        color: #fff;
+    }
+
+    .messages-table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+</style>
+

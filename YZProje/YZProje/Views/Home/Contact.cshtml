@@ -1,0 +1,110 @@
+﻿@model YZProje.Models.Iletisim
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "İletişim";
+}
+
+<div class="contact-us-section">
+    <h1>İletişim</h1>
+    <p>Bizimle iletişime geçmek için aşağıdaki formu doldurabilirsiniz. Sorularınızı ve geri bildirimlerinizi duymaktan memnuniyet duyarız!</p>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <p class="success">@TempData["SuccessMessage"]</p>
+    }
+
+    <form asp-controller="Home" asp-action="Contact" method="post" class="contact-form">
+        <div class="form-group">
+            <label asp-for="Ad">Adınız</label>
+            <input asp-for="Ad" placeholder="Adınızı girin" required />
+        </div>
+        <div class="form-group">
+            <label asp-for="Eposta">E-posta Adresiniz</label>
+            <input asp-for="Eposta" type="email" placeholder="E-posta adresinizi girin" required />
+        </div>
+        <div class="form-group">
+            <label asp-for="Mesaj">Mesajınız</label>
+            <textarea asp-for="Mesaj" placeholder="Mesajınızı buraya yazın" rows="6" required></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Gönder</button>
+    </form>
+</div>
+
+<style>
+    .contact-us-section {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f9;
+        padding: 40px 20px;
+        color: #333;
+        max-width: 900px;
+        margin: 0 auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-us-section h1 {
+        font-size: 36px;
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .contact-us-section p {
+        font-size: 16px;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .form-group label {
+        font-size: 16px;
+        color: #34495e;
+    }
+
+    .form-group input, .form-group textarea {
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 100%;
+    }
+
+    .form-group input:focus, .form-group textarea:focus {
+        border-color: #2980b9;
+        outline: none;
+    }
+
+    .submit-btn {
+        padding: 12px 25px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #2980b9;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        align-self: center;
+    }
+
+    .submit-btn:hover {
+        background-color: #3498db;
+    }
+
+    .success {
+        color: green;
+        text-align: center;
+        font-weight: bold;
+    }
+</style>

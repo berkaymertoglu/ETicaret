@@ -1,0 +1,50 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Giriş Yap";
+}
+
+<div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="card shadow p-4" style="width: 400px; border-radius: 10px;">
+        <h2 class="text-center mb-4">Giriş Yap</h2>
+
+        
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                @ViewBag.ErrorMessage
+            </div>
+        }
+
+
+        <form method="post" asp-controller="Account" asp-action="Login">
+            <div class="mb-3">
+                <label for="email" class="form-label">E-Posta</label>
+                <input type="email" class="form-control" id="email" name="Email" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Şifre</label>
+                <input type="password" class="form-control" id="password" name="Password" required>
+            </div>
+
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Giriş Yap</button>
+            </div>
+        </form>
+
+        <div class="text-center mt-3">
+            <a asp-controller="Account" asp-action="Register">Hesabın yok mu? Kayıt Ol</a>
+        </div>
+
+        <div class="text-center mt-2">
+            <a asp-controller="Account" asp-action="ForgotPassword" class="text-danger">Şifremi Unuttum</a>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        console.log("Login Page Loaded");
+    </script>
+}

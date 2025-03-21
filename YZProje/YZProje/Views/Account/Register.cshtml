@@ -1,0 +1,60 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Kayıt Ol";
+}
+
+<div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="card shadow p-4" style="width: 400px; border-radius: 10px;">
+        <h2 class="text-center mb-4">Kayıt Ol</h2>
+
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success" role="alert">
+                @TempData["Success"]
+            </div>
+        }
+
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                @ViewBag.ErrorMessage
+            </div>
+        }
+
+        <form method="post" asp-controller="Account" asp-action="Register">
+            <div class="mb-3">
+                <label for="ad" class="form-label">Ad</label>
+                <input type="text" class="form-control" id="ad" name="ad" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="soyad" class="form-label">Soyad</label>
+                <input type="text" class="form-control" id="soyad" name="soyad" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">E-Posta</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Şifre</label>
+                <input type="password" class="form-control" id="sifre" name="sifre" required>
+            </div>
+
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Kayıt Ol</button>
+            </div>
+        </form>
+
+        <div class="text-center mt-3">
+            <a asp-controller="Account" asp-action="Login">Zaten hesabın var mı? Giriş Yap</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        console.log("Register Page Loaded");
+    </script>
+}

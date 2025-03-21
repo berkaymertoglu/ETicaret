@@ -1,0 +1,91 @@
+﻿@model IEnumerable<YZProje.Models.Sepet>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Sepet";
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Success"]
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
+@{
+    decimal toplamFiyat = Model.Sum(s => s.Miktar * s.Urun.Fiyat);  // Toplam fiyat hesaplanıyor
+}
+
+<h2>Sepetiniz</h2>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Ürün</th>
+                <th>Miktar</th>
+                <th>Fiyat</th>
+                <th>Toplam</th>
+                <th>İşlem</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var sepetUrun in Model)
+            {
+                <tr>
+                    <td>
+                        <div class="product-cart d-flex">
+                            <div class="product-thumb">
+                                <img src="@sepetUrun.Urun.FotoUrl" alt="@sepetUrun.Urun.Ad" />
+                            </div>
+                            <div class="product-content media-body">
+                                <h5 class="title">@sepetUrun.Urun.Ad</h5>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        @sepetUrun.Miktar
+                    </td>
+                    <td>
+                        @sepetUrun.Urun.Fiyat.ToString("C2") <!-- Fiyat formatı -->
+                    </td>
+                    <td>
+                        @((sepetUrun.Miktar * sepetUrun.Urun.Fiyat).ToString("C2")) <!-- Ürün için toplam fiyat -->
+                    </td>
+                    <td>
+                        <!-- Sepetten çıkarma butonu -->
+                        <a href="@Url.Action("RemoveFromCart", "Sepet", new { sepetID = sepetUrun.SepetID, urunID = sepetUrun.UrunID })" class="btn btn-danger">
+                            <i class="mdi mdi-delete"></i> Sepetten Çıkar
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- Toplam fiyatı gösteriyoruz -->
+    <div class="total">
+        <strong>Toplam: </strong>
+        @toplamFiyat.ToString("C2")
+    </div>
+
+    <!-- Sepeti Tamamla Butonu -->
+    <div>
+        <form method="post" action="@Url.Action("CompletePurchase", "Checkout")">
+            <div>
+                <button type="submit" class="btn btn-success">Alışverişi Tamamla</button>
+            </div>
+        </form>
+    </div>
+}
+else
+{
+    <p>Sepetinizde ürün bulunmamaktadır.</p>
+}
